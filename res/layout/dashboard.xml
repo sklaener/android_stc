@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/db1_root" android:orientation="vertical"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	
+	    <LinearLayout style="@style/TitleBar">
+        <ImageView android:paddingLeft="6dp" android:layout_gravity="top" android:layout_height="40dp" android:contentDescription="home" android:id="@+id/imageView2" android:src="@drawable/stclogo_without" android:layout_width="wrap_content"></ImageView>
+ 		<TextView style="@style/TitleBarText"/>
+		<ProgressBar style="@style/TitleBarProgressIndicator"
+            android:id="@+id/dashprogress"
+            android:layout_centerVertical="true"
+            />
+        
+       
+        <ImageButton style="@style/TitleBarAction" android:contentDescription="Bloggers" 
+            android:src="@drawable/blog" android:id="@+id/dashblog" />
+        <ImageButton style="@style/TitleBarAction" android:contentDescription="Podcasts"    
+        	android:src="@drawable/podcasts2" android:id="@+id/dashpodcasts" />
+        <ImageButton style="@style/TitleBarAction" android:contentDescription="Videos"
+            android:src="@drawable/video" android:id="@+id/dashvideos"/>
+                                
+    	</LinearLayout>
+    	
+
+	<FrameLayout android:layout_width="fill_parent" android:id="@+id/dashLayout2"
+		android:layout_height="fill_parent">
+
+		<LinearLayout android:orientation="vertical"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:layout_weight="1" android:padding="6dip" android:background="#ffffff">
+			<LinearLayout android:orientation="horizontal"
+				android:layout_width="fill_parent" android:layout_marginTop="0dp" android:layout_below="@+id/dashLayout2" android:layout_height="108dp">
+				
+				<Button android:id="@+id/home_btn_feature1" style="@style/DashButton"
+					android:text="News" android:layout_centerVertical="true"
+					android:drawableTop="@drawable/big_news" />
+				<Button android:id="@+id/home_btn_feature2" style="@style/DashButton"
+					android:text="Community" android:layout_centerVertical="true"
+					android:drawableTop="@drawable/big_community" />
+			</LinearLayout>
+
+			<LinearLayout android:orientation="horizontal"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:layout_weight="1">
+				<Button android:id="@+id/home_btn_feature3" style="@style/DashButton"
+					android:text="Chronicles" android:layout_centerVertical="true"
+					android:drawableTop="@drawable/big_chron" />
+				<Button android:id="@+id/home_btn_feature4" style="@style/DashButton"
+					android:text="Projects" android:drawableTop="@drawable/big_projects" />
+			</LinearLayout>
+			<LinearLayout android:orientation="horizontal"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:layout_weight="1">
+				<Button android:id="@+id/home_btn_feature5" style="@style/DashButton"
+					android:text="Resources" android:drawableTop="@drawable/big_resources" />
+				<Button android:id="@+id/home_btn_feature6" style="@style/DashButton"
+					android:text="Forum" android:drawableTop="@drawable/big_forum" />
+			</LinearLayout>
+			<LinearLayout android:orientation="vertical"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:layout_weight="1">
+				<Button android:id="@+id/home_btn_feature7" style="@style/DashButton"
+					android:drawableTop="@drawable/ttp_iconw" />
+			</LinearLayout>
+		</LinearLayout>
+			<SlidingDrawer android:id="@+id/drawer" android:handle="@+id/handle" 
+				android:content="@+id/content" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:orientation="vertical"
+				android:layout_gravity="bottom" >
+				<LinearLayout android:id="@id/content"
+					android:layout_width="fill_parent" android:layout_height="fill_parent"
+					android:orientation="vertical" android:background="#eeeeee">
+					<ListView android:fadingEdge="vertical" android:id="@+id/listView_1"
+						android:layout_height="fill_parent" android:layout_width="wrap_content" />
+				</LinearLayout>
+				<ImageView android:id="@id/handle" android:src="@drawable/barnorm_stclightgreen"
+					android:layout_height="fill_parent" android:background="#375816" android:layout_width="fill_parent"/>
+			</SlidingDrawer>
+			<FrameLayout android:layout_above="@+id/footer" android:id="@+id/webContainer2" android:layout_height="fill_parent" android:layout_width="fill_parent" >
+				<TextView android:textColor="@color/grey" android:textSize="22sp" android:text="Loading..." android:id="@+id/load2" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center"></TextView>
+    		</FrameLayout>
+ 	<!--<SlidingDrawer android:id="@+id/drawer2"
+				android:handle="@+id/handle2" android:content="@+id/content2"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:orientation="vertical" android:layout_gravity="bottom" android:layout_weight="1">
+				<LinearLayout android:id="@id/content2"
+					android:layout_width="fill_parent" android:layout_height="fill_parent"
+					android:orientation="vertical" android:background="#ffffff">
+					<ListView android:fadingEdge="vertical" android:id="@+id/listView_2"
+						android:layout_height="wrap_content" android:layout_width="fill_parent" />
+				</LinearLayout>
+				<ImageView android:id="@+id/handle2" android:src="@drawable/drawer_handle5"
+					android:layout_height="fill_parent" android:layout_width="wrap_content" 
+					android:paddingLeft="0dp" />
+			</SlidingDrawer>
+			</LinearLayout>
+			<SlidingDrawer android:id="@+id/drawer3"
+				android:handle="@+id/handle3" android:content="@+id/content3"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:orientation="vertical" android:layout_gravity="left" android:layout_centerHorizontal="true">
+				<LinearLayout android:id="@id/content3"
+					android:layout_width="fill_parent" android:layout_height="fill_parent"
+					android:orientation="vertical" android:background="#ffffff">
+					<ListView android:fadingEdge="vertical" android:id="@+id/listView_3"
+						android:layout_height="wrap_content" android:layout_width="fill_parent" />
+				</LinearLayout>
+				<ImageView android:id="@+id/handle3" android:src="@drawable/drawer_handle5"
+					android:layout_height="fill_parent" android:paddingLeft="0dp" android:layout_width="wrap_content"/>
+			</SlidingDrawer>
+						<SlidingDrawer android:id="@+id/drawer4"
+				android:handle="@+id/handle4" android:content="@+id/content4"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:orientation="vertical" android:layout_gravity="left">
+				<LinearLayout android:id="@+id/content4"
+					android:layout_width="fill_parent" android:layout_height="fill_parent"
+					android:orientation="vertical" android:background="#ffffff">
+					<ListView android:fadingEdge="vertical" android:id="@+id/listView_4"
+						android:layout_height="wrap_content" android:layout_width="fill_parent" />
+				</LinearLayout>
+				<ImageView android:id="@+id/handle4" android:src="@drawable/drawer_handle5"
+					android:layout_height="fill_parent" android:paddingLeft="0dp" android:layout_width="wrap_content"/>
+			</SlidingDrawer>
+			<SlidingDrawer android:id="@+id/drawer5"
+				android:handle="@+id/handle5" android:content="@+id/content5"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:orientation="vertical" android:layout_gravity="left">
+				<LinearLayout android:id="@+id/content5"
+					android:layout_width="fill_parent" android:layout_height="fill_parent"
+					android:orientation="vertical" android:background="#ffffff">
+					<ListView android:fadingEdge="vertical" android:id="@+id/listView_5"
+						android:layout_height="wrap_content" android:layout_width="fill_parent" />
+				</LinearLayout>
+				<ImageView android:id="@+id/handle5" android:src="@drawable/drawer_handle5"
+					android:layout_height="fill_parent" android:paddingLeft="0dp" android:layout_width="wrap_content"/>
+			</SlidingDrawer> -->
+			
+		
+	
+	</FrameLayout>
+</LinearLayout>

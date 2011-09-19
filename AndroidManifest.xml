@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 	<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+ 	      package="com.echo.stc"
+ 	      android:versionCode="1" android:versionName="1.0">
+ 	
+ 	
+ 	    <application android:name=".ApplicationSettings" android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
+ 	        <activity android:name=".CategoryListActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>
+ 	        
+ 	        <activity android:name=".LoadScreenActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.LAUNCHER" />
+ 	            </intent-filter>
+ 	        </activity>
+ 	        
+ 	        <activity android:name=".ArticleActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>
+ 	        
+ 	        <activity android:name=".AboutActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>
+ 	        
+ 	        <activity android:name=".CommentActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>
+      		<activity android:name=".DashboardActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>	        
+ 
+      		<activity android:name=".RSSActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>	 	    
+ 	        <activity android:name=".Feature2ListActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>	 	    
+ 	        <activity android:name=".Feature3ListActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>	 	    
+ 	        <activity android:name=".Feature4ListActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>	 	    
+ 	        <activity android:name=".Feature5ListActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>	 	    
+ 	        <activity android:name=".Feature6ListActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>	 	    
+ 	        <activity android:name=".Feature7ListActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>	 	    
+ 	        
+ 	        <activity android:name=".PostSettingsActivity"
+ 	                  android:label="@string/app_name"
+ 	                  android:theme="@android:style/Theme.NoTitleBar"
+ 	                  android:configChanges="orientation|keyboardHidden">
+ 	            <intent-filter>
+ 	                <action android:name="android.intent.action.MAIN" />
+ 	                <category android:name="android.intent.category.DEFAULT" />
+ 	            </intent-filter>
+ 	        </activity>
+ 	       
+ 	    </application>
+ 	   
+ 	    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+ 	    <uses-permission android:name="android.permission.CLEAR_APP_USER_DATA"></uses-permission>
+ 	    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+ 		<uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+ 		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+ 		
+ 		<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="8"/>
+ 	</manifest>

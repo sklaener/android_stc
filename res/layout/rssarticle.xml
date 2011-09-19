@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout style="@style/TitleBar">
+     <ImageButton style="@style/TitleBarAction"
+            android:id="@+id/home" android:src="@drawable/title_home" />
+        <ImageView android:paddingLeft="6dp" android:layout_gravity="top" android:layout_height="40dp" android:contentDescription="home" android:id="@+id/imageView2" android:src="@drawable/stclogo_without" android:layout_width="wrap_content"></ImageView>
+ 		<TextView style="@style/TitleBarText"/>
+		<ProgressBar style="@style/TitleBarProgressIndicator"
+            android:id="@+id/dashprogress"
+            android:layout_centerVertical="true"
+            />         
+          <ImageButton style="@style/TitleBarAction"
+            android:id="@+id/share" android:src="@drawable/action_bar_share" />               
+    	</LinearLayout>
+
+    <FrameLayout android:layout_width="fill_parent" android:id="@+id/storyLayout2" android:layout_height="fill_parent">
+        <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/storyLayout">
+            <RelativeLayout android:layout_height="fill_parent" android:id="@+id/relativeLayout2" android:layout_width="fill_parent">
+    			<FrameLayout android:layout_above="@+id/footer" android:id="@+id/webContainer" android:layout_height="fill_parent" android:layout_width="fill_parent" >
+    				<TextView android:textColor="@color/grey" android:textSize="22sp" android:text="Loading..." android:id="@+id/load" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center"></TextView>
+    			</FrameLayout>
+    		</RelativeLayout>
+        </LinearLayout>
+    
+    </FrameLayout>
+</LinearLayout>

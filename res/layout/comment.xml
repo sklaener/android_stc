@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" android:background="#ffffff" android:weightSum="1">
+  <FrameLayout android:layout_width="fill_parent" android:id="@+id/storyLayout2" android:layout_height="fill_parent">        
+  <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/storyLayout" android:background="#ffffff">
+  <ImageView android:src="@drawable/bar" android:scaleType="fitXY" android:layout_width="fill_parent" android:id="@+id/imageView1" android:layout_height="wrap_content" android:layout_gravity="top"></ImageView>
+  <ScrollView android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/scrollView2">
+  <RelativeLayout android:layout_width="fill_parent"
+	android:layout_height="210dip" android:layout_marginTop="10dip" android:background="#ffffff" android:layout_weight="0.89">
+<TextView android:id="@+id/tv_name" android:layout_width="wrap_content"
+	android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+	android:layout_marginRight="9dip" android:layout_marginTop="20dip"
+	android:layout_marginLeft="10dip" android:text="Name" />
+<EditText android:id="@+id/name" android:layout_width="150dip"
+	android:layout_height="wrap_content" android:background="@android:drawable/editbox_background"
+	android:layout_alignTop="@+id/tv_name" 
+	android:layout_alignParentRight="true" android:layout_alignLeft="@+id/mail" android:maxLines="1" android:nextFocusDown="@+id/mail"/>
+<TextView android:id="@+id/tv_mail" android:layout_width="wrap_content"
+	android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+	android:layout_marginRight="9dip" android:layout_marginTop="20dip"
+	android:layout_below="@+id/tv_name" android:layout_centerVertical="true"
+	android:layout_marginLeft="10dip" android:text="Mail" />
+<EditText android:id="@+id/mail" android:layout_width="150dip"
+	android:layout_height="wrap_content" android:background="@android:drawable/editbox_background"
+	android:layout_alignTop="@+id/tv_mail" android:inputType="textEmailAddress"
+	android:layout_alignParentRight="true"
+	android:layout_below="@+id/name" android:layout_alignLeft="@+id/website" android:maxLines="1"/>
+<TextView android:id="@+id/tv_web" android:layout_width="wrap_content"
+	android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+	android:layout_below="@+id/tv_mail" android:layout_marginRight="9dip"
+	android:layout_marginTop="15dip" android:layout_marginLeft="10dip"
+	android:text="Website" android:layout_centerVertical="true" />
+<EditText android:id="@+id/website" android:layout_width="150dip"
+	android:layout_height="wrap_content" android:background="@android:drawable/editbox_background"
+	android:layout_toRightOf="@+id/tv_web" android:layout_alignTop="@+id/tv_web"
+	android:layout_below="@+id/mail" android:layout_marginLeft="17dip"
+	android:layout_alignParentRight="true" android:maxLines="1" android:nextFocusDown="@+id/comment"/>
+<TextView android:id="@+id/tv_comment" android:layout_width="wrap_content"
+	android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+	android:layout_below="@id/tv_web" android:layout_marginRight="9dip"
+	android:layout_marginTop="15dip" android:layout_marginLeft="10dip"
+	android:text="Comment" android:layout_centerVertical="true"/>
+<EditText android:inputType="textMultiLine" 
+	android:id="@+id/comment" android:layout_below="@+id/website" 
+	android:layout_width="fill_parent" android:layout_height="fill_parent" 
+	android:layout_alignLeft="@+id/website" android:layout_alignParentRight="true" android:minLines="2"/>
+<Button android:id="@+id/btn_submit" android:layout_width="100dip"
+	android:layout_height="wrap_content" android:layout_below="@+id/comment"
+	android:layout_marginTop="15dip" 
+	android:text="Submit" android:layout_alignParentRight="true" android:layout_alignLeft="@+id/comment"/>
+<TextView android:id="@+id/error" android:layout_width="fill_parent"
+	android:layout_height="40dip" android:textSize="7pt"
+	android:layout_alignParentLeft="true" android:layout_below="@+id/btn_submit"
+	android:layout_marginRight="9dip" android:layout_marginTop="15dip"
+	android:layout_marginLeft="15dip" android:textColor="#AA0000"
+	android:text="" android:background="#ffffff"/>
+</RelativeLayout>
+</ScrollView>
+</LinearLayout>
+	                
+<ImageView android:id="@+id/imageView1" android:scaleType="fitXY" android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/grad" android:layout_gravity="top"></ImageView>
+<ImageView android:contentDescription="home" android:id="@+id/imageView2" android:layout_gravity="top" android:src="@drawable/stclogo_without" android:layout_height="40dp" android:layout_width="fill_parent"></ImageView>
+</FrameLayout>
+</LinearLayout>

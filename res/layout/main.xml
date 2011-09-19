@@ -1,0 +1,110 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	 <LinearLayout style="@style/TitleBar">
+	 <ImageButton style="@style/TitleBarAction"
+            android:id="@+id/home" android:src="@drawable/title_home" />
+        <ImageView android:paddingLeft="6dp" android:layout_gravity="top" android:layout_height="40dp" android:contentDescription="home" android:id="@+id/imageView2" android:src="@drawable/stclogo_without" android:layout_width="wrap_content"></ImageView>
+ 		<TextView style="@style/TitleBarText"/>
+		<ImageButton style="@style/TitleBarAction"
+            android:id="@+id/refresh" android:src="@drawable/action_bar_refresh" />
+    	<ImageButton style="@style/TitleBarAction"
+            android:id="@+id/settings" android:src="@drawable/action_bar_settings" />
+    	</LinearLayout>
+	<FrameLayout android:id="@+id/frameLayout1"
+		android:layout_height="fill_parent" android:layout_width="fill_parent"
+		android:background="@color/menuColor1">
+		<LinearLayout android:id="@+id/linearLayout1"
+			android:layout_width="fill_parent" android:orientation="vertical"
+			android:layout_height="fill_parent">
+			<FrameLayout android:id="@+id/frameLayout2"
+				android:layout_height="fill_parent" android:layout_width="fill_parent">
+				<LinearLayout android:id="@+id/linearLayout2"
+					android:layout_width="fill_parent" android:layout_height="fill_parent"
+					android:orientation="vertical">
+					
+					<com.echo.stc.AdGallery
+						android:background="@drawable/barnorm" android:id="@+id/gallery1"
+						android:layout_width="fill_parent" android:fadingEdge="none" android:layout_height="0dp"/>
+					<FrameLayout android:layout_height="fill_parent"
+						android:id="@+id/frameLayout3" android:layout_width="fill_parent">
+						<LinearLayout android:layout_height="fill_parent"
+							android:id="@+id/linearLayout3" android:layout_width="fill_parent"
+							android:orientation="vertical">
+							<ImageView android:id="@+id/imageView4"
+								android:layout_width="fill_parent" android:layout_height="17dp" android:src="@drawable/normalbar" android:scaleType="fitXY"/>
+								
+							<RelativeLayout android:layout_height="fill_parent"
+								android:id="@+id/relativeLayout4"
+								android:layout_alignParentBottom="true" android:layout_width="fill_parent">
+								<com.echo.stc.PullToRefreshListView
+									android:layout_above="@+id/relativeLayout5" android:fadingEdge="vertical"
+									android:id="@+id/listView" android:layout_height="wrap_content"
+									android:layout_width="fill_parent" />
+							</RelativeLayout>
+						</LinearLayout>
+						<FrameLayout android:layout_height="wrap_content"
+							android:id="@+id/frameLayout4" android:layout_width="fill_parent">
+							<ImageView android:id="@+id/imageView3"
+								android:layout_width="fill_parent" android:layout_height="fill_parent"
+								android:src="@drawable/bar2" android:scaleType="fitXY" />
+							<RelativeLayout android:layout_width="fill_parent"
+								android:id="@+id/relativeLayout3" android:layout_height="fill_parent">
+								<TextView android:layout_alignParentLeft="true"
+									android:layout_marginLeft="3dp" android:textColor="@color/android_grey"
+									android:textSize="12dp" android:paddingRight="5dp"
+									android:layout_centerVertical="true" android:text="TextView"
+									android:id="@+id/category" android:layout_width="wrap_content"
+									android:layout_height="wrap_content" />
+								<ImageView android:id="@+id/imageView11"
+									android:scaleType="fitXY" android:layout_marginLeft="2dp" 
+									android:layout_marginRight="2dp" android:layout_centerVertical="true" 
+									android:layout_toRightOf="@+id/imageView10" android:layout_width="17dp"
+									android:layout_height="17dp" android:src="@drawable/featured_unselected" />
+								<ImageView android:id="@+id/imageView10"
+									android:scaleType="fitXY" android:layout_marginLeft="2dp" 
+									android:layout_marginRight="2dp" android:layout_centerVertical="true" 
+									android:layout_toRightOf="@+id/imageView5" android:layout_width="17dp"
+									android:layout_height="17dp" android:src="@drawable/featured_unselected" />
+								<ImageView android:id="@+id/imageView5"
+									android:scaleType="fitXY" android:layout_marginLeft="2dp" 
+									android:layout_marginRight="2dp" android:layout_centerVertical="true" 
+									android:layout_toRightOf="@+id/imageView6" android:layout_width="17dp"
+									android:layout_height="17dp" android:src="@drawable/featured_unselected" />
+								<ImageView android:id="@+id/imageView6"
+									android:scaleType="fitXY" android:layout_marginLeft="2dp"
+									android:layout_marginRight="2dp" android:layout_centerVertical="true"
+									android:layout_width="17dp"
+									android:layout_height="17dp" android:src="@drawable/featured_unselected"  android:layout_centerHorizontal="true"/>
+								<ImageView android:id="@+id/imageView7"
+									android:scaleType="fitXY" android:layout_marginLeft="2dp"
+									android:layout_marginRight="2dp" android:layout_centerVertical="true"
+									android:layout_toLeftOf="@+id/imageView6" android:layout_width="17dp"
+									android:layout_height="17dp" android:src="@drawable/featured_unselected" />
+								<ImageView android:id="@+id/imageView8"
+									android:scaleType="fitXY" android:layout_marginLeft="2dp" 
+									android:layout_marginRight="2dp" android:layout_centerVertical="true" 
+									android:layout_toLeftOf="@+id/imageView7" android:layout_width="17dp"
+									android:layout_height="17dp" android:src="@drawable/featured_unselected" />
+								<ImageView android:id="@+id/imageView9"
+									android:scaleType="fitXY" android:layout_marginLeft="2dp"
+									android:layout_marginRight="2dp" android:layout_centerVertical="true"
+									android:layout_toLeftOf="@+id/imageView8" android:layout_width="17dp"
+									android:layout_height="17dp" android:src="@drawable/featured_unselected"/>
+								
+								<TextView android:layout_alignParentRight="true"
+									android:layout_marginLeft="3dp" android:textColor="@color/android_grey"
+									android:textSize="12dp" android:paddingRight="5dp"
+									android:layout_centerVertical="true" android:text="TextView"
+									android:id="@+id/nextCategory" android:layout_width="wrap_content"
+									android:layout_height="wrap_content" />
+							</RelativeLayout>
+						</FrameLayout>
+					</FrameLayout>
+				</LinearLayout>
+
+		
+			</FrameLayout>
+		</LinearLayout>
+	</FrameLayout>
+</LinearLayout>

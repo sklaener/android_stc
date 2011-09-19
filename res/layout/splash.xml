@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:background="@drawable/splashback" android:orientation="vertical">
+
+
+	<FrameLayout android:background="@drawable/splashback"
+		android:id="@+id/frameLayout1" android:layout_height="fill_parent"
+		android:layout_width="fill_parent">
+		<RelativeLayout android:layout_height="fill_parent"
+			android:id="@+id/relativeLayout1" android:layout_width="fill_parent"
+			android:background="#558822">
+		</RelativeLayout>
+		<ImageView android:layout_gravity="center"
+			android:src="@drawable/stclogo_without" android:layout_width="fill_parent"
+			android:background="#558822" android:layout_height="50dp"></ImageView>
+	</FrameLayout>
+	
+</LinearLayout>
+
+
