@@ -184,6 +184,19 @@ public class ArticleActivity extends Activity {
 				share(title, story.getURL());
 			}
 		});
+		
+		ImageButton browser = (ImageButton) findViewById(R.id.browser);
+		browser.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				i.setData(Uri.parse(story.getURL()));
+				startActivity(i);
+			}
+		});
 
 		try {
 

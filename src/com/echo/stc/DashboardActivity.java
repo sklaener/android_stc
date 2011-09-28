@@ -19,6 +19,7 @@ import com.echo.stc.ArticleActivity.LearnGestureListener;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -55,6 +56,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.ViewFlipper;
+
 import org.jsoup.safety.Whitelist;
 import org.apache.commons.*;
 
@@ -89,353 +92,23 @@ public class DashboardActivity extends Activity {
 	private int defaultCategory = 0;
 	private ProgressBar refreshProgress;
 	private String defCat;
-	FlingWebView web;
-	WebViewClient client;
 	private static final int SWIPE_MIN_DISTANCE = 120;
 	private static final int SWIPE_MAX_OFF_PATH = 250;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-	TextView loading;
+	ViewFlipper flipper;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		setTheme(android.R.style.Theme_Light_NoTitleBar);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard);
-		settings = (ApplicationSettings) this.getApplication();
-		myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
-		Intent i = this.getIntent();
-		myBloggersList = new ArrayList<RSSData>();
-		myPodcastsList = new ArrayList<RSSData>();
-		myVideosList = new ArrayList<RSSData>();
-		myNeitherList = new ArrayList<RSSData>();
-		toast = Toast.makeText(this, "Unable to connect", 5);
-		
-		feat1 = (Button) findViewById(R.id.home_btn_feature1);
-		feat2 = (Button) findViewById(R.id.home_btn_feature2);
-		feat3 = (Button) findViewById(R.id.home_btn_feature3);
-		feat4 = (Button) findViewById(R.id.home_btn_feature4);
-		feat5 = (Button) findViewById(R.id.home_btn_feature5);
-		feat6 = (Button) findViewById(R.id.home_btn_feature6);
-		feat7 = (Button) findViewById(R.id.home_btn_feature7);
-		slider = (SlidingDrawer)findViewById(R.id.drawer);
-		bloggers = (ImageButton)findViewById(R.id.dashblog);
-		podcasts =(ImageButton)findViewById(R.id.dashpodcasts);
-		videos =(ImageButton)findViewById(R.id.dashvideos);
-		loading = (TextView)findViewById(R.id.load2);
-		
-		web = new FlingWebView(this);
-		LayoutParams params = new LayoutParams(
-				RelativeLayout.LayoutParams.FILL_PARENT,
-				RelativeLayout.LayoutParams.FILL_PARENT);
-		web.getSettings().setJavaScriptEnabled(true);
-		web.getSettings().setPluginsEnabled(true);
-		web.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-		web.setHorizontalScrollBarEnabled(false);
-		web.setVerticalScrollBarEnabled(true);
-		web.getSettings().setDefaultFontSize(settings.getFontSize());
-		web.getSettings().setSupportZoom(false);
-		web.getSettings().setRenderPriority(RenderPriority.HIGH);
-		web.setDrawingCacheEnabled(true);
-		web.setGestureDetector(new GestureDetector(DashboardActivity.this, new LearnGestureListener()));
-		web.setLayoutParams(params);
-		web.setAlwaysDrawnWithCacheEnabled(true);
-		client = new WebViewClient();
-		web.setWebViewClient(client);
-		
-		FrameLayout l = (FrameLayout) findViewById(R.id.webContainer2);
-		web.setVisibility(View.GONE);
-		l.addView(web);
-		
-		loading.setVisibility(8);
-		
-		refreshProgress = (ProgressBar)findViewById(R.id.dashprogress);
-		refreshProgress.setVisibility(View.GONE);
-		mListView = (ListView) findViewById(R.id.listView_1);
-		mListView.setAdapter(new MyListAdapter(this, R.layout.rssrow,	myBloggersList));
-		openDefaultFeed();
-
-		ImageView logo = (ImageView) findViewById(R.id.imageView2);
-		logo.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				if (web.getVisibility() == View.VISIBLE){
-					web.setVisibility(View.GONE);
-					web.clearView();
-				} else if (slider.isOpened()){
-					slider.animateClose();
-				} else {
-				finish();
-				}
-			}
-		});
-		mListView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				// Toast.makeText(DashboardActivity.this, "Clicked on "
-				// +temp.getText(), 3).show();
-				String url = "";
-			//	findViewById(R.id.load2).setVisibility(View.VISIBLE);
-				
-				
-				
-				if (isBloggers){
-					Intent i = new Intent(DashboardActivity.this, RSSActivity.class);
-					i.putExtra("author", myBloggersList.get(arg2).getAuthor());
-					i.putExtra("blog", myBloggersList.get(arg2).getBlogTitle());
-					i.putExtra("title", myBloggersList.get(arg2).getTitle());
-					i.putExtra("category", myBloggersList.get(arg2).getCategory());
-					i.putExtra("content", myBloggersList.get(arg2).getContent());
-					i.putExtra("url", myBloggersList.get(arg2).getUrl());
-				 	startActivity(i);
-				} else if (isPodcasts) {
-					Intent i = new Intent(Intent.ACTION_VIEW);
-					i.setData(Uri.parse(myPodcastsList.get(arg2).getUrl()));
-					startActivity(i);
-				} else if (isVideos) { 
-					Intent i = new Intent(Intent.ACTION_VIEW);
-					i.setData(Uri.parse(myVideosList.get(arg2).getUrl()));
-					startActivity(i);
-				 	//client.shouldOverrideUrlLoading(web, url);	
-				} else if (isNeither) {
-					if (myNeitherList.get(arg2).getCategory().equalsIgnoreCase("Jobs")){
-						Intent i = new Intent(Intent.ACTION_VIEW);
-						i.setData(Uri.parse(myNeitherList.get(arg2).getUrl()));
-						startActivity(i);
-					} else{
-						Intent i = new Intent(DashboardActivity.this, RSSActivity.class);
-						i.putExtra("author", myNeitherList.get(arg2).getAuthor());
-						i.putExtra("blog", myNeitherList.get(arg2).getBlogTitle());
-						i.putExtra("title", myNeitherList.get(arg2).getTitle());
-						i.putExtra("category", myNeitherList.get(arg2).getCategory());
-						i.putExtra("content", myNeitherList.get(arg2).getContent());
-						i.putExtra("url", myNeitherList.get(arg2).getUrl());
-					 	startActivity(i);
-					}
-				}
-
-			//	web.setVisibility(0);
-			//	 findViewById(R.id.load2).setVisibility(8);
-			}
-		});
-		
-		mListView.setOnItemLongClickListener(new OnItemLongClickListener(){
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-			
-			 {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				// Toast.makeText(DashboardActivity.this, "Clicked on "
-				// +temp.getText(), 3).show();
-				Intent i = new Intent(Intent.ACTION_VIEW);
-				if (isBloggers)
-					i.setData(Uri.parse(myBloggersList.get(arg2).getUrl()));
-				if (isPodcasts)
-					i.setData(Uri.parse(myPodcastsList.get(arg2).getUrl()));
-				if (isVideos)
-					i.setData(Uri.parse(myVideosList.get(arg2).getUrl()));
-				if (isNeither)
-					i.setData(Uri.parse(myNeitherList.get(arg2).getUrl()));
-				startActivity(i);
-				return false;
-			 }
-			
-		});
-		
-		feat1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				Intent i = new Intent(DashboardActivity.this,
-						CategoryListActivity.class);
-				i.putExtra("category", "News");
-				i.putExtra("nextCategory", "Community");
-				i.putExtra("categoryNumber", 0);
-				startActivity(i);
-			}
-		});
-		feat2.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				Intent i = new Intent(DashboardActivity.this,
-						CategoryListActivity.class);
-				i.putExtra("category", "Community");
-				i.putExtra("nextCategory", "Chronicles");
-				i.putExtra("categoryNumber", 1);
-				startActivity(i);
-			}
-		});
-		feat3.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				Intent i = new Intent(DashboardActivity.this,
-						CategoryListActivity.class);
-				i.putExtra("category", "Chronicles");
-				i.putExtra("nextCategory", "Projects");
-				i.putExtra("categoryNumber", 2);
-				startActivity(i);
-			}
-		});
-		feat4.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				Intent i = new Intent(DashboardActivity.this,
-						CategoryListActivity.class);
-				i.putExtra("category", "Projects");
-				i.putExtra("nextCategory", "Resources");
-				i.putExtra("categoryNumber", 3);
-				startActivity(i);
-			}
-		});
-		feat5.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				Intent i = new Intent(DashboardActivity.this,
-						CategoryListActivity.class);
-				i.putExtra("category", "Resources");
-				i.putExtra("nextCategory", "Testing Planet");
-				i.putExtra("categoryNumber", 4);
-				startActivity(i);
-			}
-		});
-		feat6.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				Intent i = new Intent(DashboardActivity.this,
-						CategoryListActivity.class);
-				i.putExtra("category", "Forum");
-				i.putExtra("nextCategory", " ");
-				i.putExtra("categoryNumber", 6);
-				startActivity(i);
-			}
-		});
-		feat7.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				Intent i = new Intent(DashboardActivity.this,
-						CategoryListActivity.class);
-				i.putExtra("category", "Testing Planet");
-				i.putExtra("nextCategory", "Forum");
-				i.putExtra("categoryNumber", 5);
-				startActivity(i);
-			}
-		});
-		
-		bloggers.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				try {
-					if (slider.isOpened()){
-						slider.animateClose();
-					} else {
-						if (!isBloggers){
-							myBloggersList = new ArrayList<RSSData>();
-							getFeed(BLOGGERS);
-							mListView.setAdapter(new MyListAdapter(DashboardActivity.this, R.layout.rssrow,myBloggersList));
-						}
-						slider.animateOpen();
-					}	
-				} catch (ClientProtocolException e) {
-					toast.show();
-					e.printStackTrace();
-				} catch (IOException e) {
-					toast.show();
-					e.printStackTrace();
-				}
-			}
-		});
-		podcasts.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				try {
-					if (slider.isOpened()){
-						slider.animateClose();
-					} else {
-						if (!isPodcasts){
-							myPodcastsList = new ArrayList<RSSData>();
-							getFeed(PODCASTS);
-							mListView.setAdapter(new MyListAdapter(DashboardActivity.this, R.layout.rssrow,myPodcastsList));
-						}
-						slider.animateOpen();
-					}
-				} catch (ClientProtocolException e) {
-					toast.show();
-					e.printStackTrace();
-				} catch (IOException e) {
-					toast.show();
-					e.printStackTrace();
-				}
-			}
-		});
-		videos.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (settings.getVibrateEnabled()) {
-					myVib.vibrate(50);
-				}
-				try {
-					if (slider.isOpened()){
-						slider.animateClose();
-					} else {
-						if (!isVideos){
-							myVideosList = new ArrayList<RSSData>();
-							getVideos(VIDEOS);
-							mListView.setAdapter(new MyListAdapter(DashboardActivity.this, R.layout.rssrow,myVideosList));
-						}
-						slider.animateOpen();
-					}
-				} catch (ClientProtocolException e) {
-					toast.show();
-					e.printStackTrace();
-				} catch (IOException e) {
-					toast.show();
-					e.printStackTrace();
-				}
-			}
-		});
+		InitializeUI();
 
 	}
 
 	@Override
 	public void onBackPressed() {
-		 if (web.getVisibility() == View.VISIBLE){
-			web.setVisibility(View.GONE);
-			web.clearView();
-		} else if (slider.isOpened()){
+		 if (slider.isOpened()){
 			slider.animateClose();
 		}else
 			finish();
@@ -1100,8 +773,8 @@ public class DashboardActivity extends Activity {
 		@Override
 		public void onLongPress(MotionEvent ev) {
 			// Log.d("onLongPress",ev.toString());
-			web.setVisibility(View.GONE);
-			web.clearView();
+			//web.setVisibility(View.GONE);
+			//web.clearView();
 		}
 
 		@Override
@@ -1127,13 +800,9 @@ public class DashboardActivity extends Activity {
 				// right to left swipe
 				if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
 						&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY*2) {
-					web.setVisibility(View.GONE);
-					web.clearView();
 	
 				} else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
 						&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY*2) {
-					web.setVisibility(View.GONE);
-					web.clearView();
 				}
 			} catch (Exception e) {
 				// nothing
@@ -1142,5 +811,321 @@ public class DashboardActivity extends Activity {
 		}
 
 	}
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	  super.onConfigurationChanged(newConfig);
+	  setContentView(R.layout.dashboard);
+	  
+	  InitializeUI();
 
+	}
+	public void InitializeUI()
+	{
+		settings = (ApplicationSettings) this.getApplication();
+		myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+		Intent i = this.getIntent();
+		myBloggersList = new ArrayList<RSSData>();
+		myPodcastsList = new ArrayList<RSSData>();
+		myVideosList = new ArrayList<RSSData>();
+		myNeitherList = new ArrayList<RSSData>();
+		toast = Toast.makeText(this, "Unable to connect", 5);
+		
+		//flipper = (ViewFlipper)findViewById(R.id.dashflipper);
+		
+		feat1 = (Button) findViewById(R.id.home_btn_feature1);
+		feat2 = (Button) findViewById(R.id.home_btn_feature2);
+		feat3 = (Button) findViewById(R.id.home_btn_feature3);
+		feat4 = (Button) findViewById(R.id.home_btn_feature4);
+		feat5 = (Button) findViewById(R.id.home_btn_feature5);
+		feat6 = (Button) findViewById(R.id.home_btn_feature6);
+		feat7 = (Button) findViewById(R.id.home_btn_feature7);
+		slider = (SlidingDrawer)findViewById(R.id.drawer);
+		bloggers = (ImageButton)findViewById(R.id.dashblog);
+		podcasts =(ImageButton)findViewById(R.id.dashpodcasts);
+		videos =(ImageButton)findViewById(R.id.dashvideos);
+					
+	/*	FrameLayout l = (FrameLayout) findViewById(R.id.webContainer2);
+		web.setVisibility(View.GONE);
+		l.addView(web);*/
+		
+		//loading.setVisibility(8);
+		
+		refreshProgress = (ProgressBar)findViewById(R.id.dashprogress);
+		refreshProgress.setVisibility(View.GONE);
+		mListView = (ListView) findViewById(R.id.listView_1);
+		mListView.setAdapter(new MyListAdapter(this, R.layout.rssrow,	myBloggersList));
+		openDefaultFeed();
+
+		ImageView logo = (ImageView) findViewById(R.id.imageView2);
+		logo.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				if (slider.isOpened()){
+					slider.animateClose();
+				} else {
+				finish();
+				}
+			}
+		});
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				// Toast.makeText(DashboardActivity.this, "Clicked on "
+				// +temp.getText(), 3).show();
+				String url = "";
+			//	findViewById(R.id.load2).setVisibility(View.VISIBLE);
+				
+				
+				
+				if (isBloggers){
+					Intent i = new Intent(DashboardActivity.this, RSSActivity.class);
+					i.putExtra("author", myBloggersList.get(arg2).getAuthor());
+					i.putExtra("blog", myBloggersList.get(arg2).getBlogTitle());
+					i.putExtra("title", myBloggersList.get(arg2).getTitle());
+					i.putExtra("category", myBloggersList.get(arg2).getCategory());
+					i.putExtra("content", myBloggersList.get(arg2).getContent());
+					i.putExtra("url", myBloggersList.get(arg2).getUrl());
+				 	startActivity(i);
+				} else if (isPodcasts) {
+					Intent i = new Intent(Intent.ACTION_VIEW);
+					i.setData(Uri.parse(myPodcastsList.get(arg2).getUrl()));
+					startActivity(i);
+				} else if (isVideos) { 
+					Intent i = new Intent(Intent.ACTION_VIEW);
+					i.setData(Uri.parse(myVideosList.get(arg2).getUrl()));
+					startActivity(i);
+				 	//client.shouldOverrideUrlLoading(web, url);	
+				} else if (isNeither) {
+					if (myNeitherList.get(arg2).getCategory().equalsIgnoreCase("Jobs")){
+						Intent i = new Intent(Intent.ACTION_VIEW);
+						i.setData(Uri.parse(myNeitherList.get(arg2).getUrl()));
+						startActivity(i);
+					} else{
+						Intent i = new Intent(DashboardActivity.this, RSSActivity.class);
+						i.putExtra("author", myNeitherList.get(arg2).getAuthor());
+						i.putExtra("blog", myNeitherList.get(arg2).getBlogTitle());
+						i.putExtra("title", myNeitherList.get(arg2).getTitle());
+						i.putExtra("category", myNeitherList.get(arg2).getCategory());
+						i.putExtra("content", myNeitherList.get(arg2).getContent());
+						i.putExtra("url", myNeitherList.get(arg2).getUrl());
+					 	startActivity(i);
+					}
+				}
+
+			//	web.setVisibility(0);
+			//	 findViewById(R.id.load2).setVisibility(8);
+			}
+		});
+		
+		mListView.setOnItemLongClickListener(new OnItemLongClickListener(){
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			
+			 {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				// Toast.makeText(DashboardActivity.this, "Clicked on "
+				// +temp.getText(), 3).show();
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				if (isBloggers)
+					i.setData(Uri.parse(myBloggersList.get(arg2).getUrl()));
+				if (isPodcasts)
+					i.setData(Uri.parse(myPodcastsList.get(arg2).getUrl()));
+				if (isVideos)
+					i.setData(Uri.parse(myVideosList.get(arg2).getUrl()));
+				if (isNeither)
+					i.setData(Uri.parse(myNeitherList.get(arg2).getUrl()));
+				startActivity(i);
+				return false;
+			 }
+			
+		});
+		
+		feat1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				Intent i = new Intent(DashboardActivity.this,
+						CategoryListActivity.class);
+				i.putExtra("category", "News");
+				i.putExtra("nextCategory", "Community");
+				i.putExtra("categoryNumber", 0);
+				startActivity(i);
+			}
+		});
+		feat2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				Intent i = new Intent(DashboardActivity.this,
+						CategoryListActivity.class);
+				i.putExtra("category", "Community");
+				i.putExtra("nextCategory", "Chronicles");
+				i.putExtra("categoryNumber", 1);
+				startActivity(i);
+			}
+		});
+		feat3.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				Intent i = new Intent(DashboardActivity.this,
+						CategoryListActivity.class);
+				i.putExtra("category", "Chronicles");
+				i.putExtra("nextCategory", "Projects");
+				i.putExtra("categoryNumber", 2);
+				startActivity(i);
+			}
+		});
+		feat4.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				Intent i = new Intent(DashboardActivity.this,
+						CategoryListActivity.class);
+				i.putExtra("category", "Projects");
+				i.putExtra("nextCategory", "Resources");
+				i.putExtra("categoryNumber", 3);
+				startActivity(i);
+			}
+		});
+		feat5.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				Intent i = new Intent(DashboardActivity.this,
+						CategoryListActivity.class);
+				i.putExtra("category", "Resources");
+				i.putExtra("nextCategory", "Testing Planet");
+				i.putExtra("categoryNumber", 4);
+				startActivity(i);
+			}
+		});
+		feat6.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				Intent i = new Intent(DashboardActivity.this,
+						CategoryListActivity.class);
+				i.putExtra("category", "Forum");
+				i.putExtra("nextCategory", " ");
+				i.putExtra("categoryNumber", 6);
+				startActivity(i);
+			}
+		});
+		feat7.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				Intent i = new Intent(DashboardActivity.this,
+						CategoryListActivity.class);
+				i.putExtra("category", "Testing Planet");
+				i.putExtra("nextCategory", "Forum");
+				i.putExtra("categoryNumber", 5);
+				startActivity(i);
+			}
+		});
+		
+		bloggers.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				try {
+					if (slider.isOpened()){
+						slider.animateClose();
+					} else {
+						if (!isBloggers){
+							myBloggersList = new ArrayList<RSSData>();
+							getFeed(BLOGGERS);
+							mListView.setAdapter(new MyListAdapter(DashboardActivity.this, R.layout.rssrow,myBloggersList));
+						}
+						slider.animateOpen();
+					}	
+				} catch (ClientProtocolException e) {
+					toast.show();
+					e.printStackTrace();
+				} catch (IOException e) {
+					toast.show();
+					e.printStackTrace();
+				}
+			}
+		});
+		podcasts.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				try {
+					if (slider.isOpened()){
+						slider.animateClose();
+					} else {
+						if (!isPodcasts){
+							myPodcastsList = new ArrayList<RSSData>();
+							getFeed(PODCASTS);
+							mListView.setAdapter(new MyListAdapter(DashboardActivity.this, R.layout.rssrow,myPodcastsList));
+						}
+						slider.animateOpen();
+					}
+				} catch (ClientProtocolException e) {
+					toast.show();
+					e.printStackTrace();
+				} catch (IOException e) {
+					toast.show();
+					e.printStackTrace();
+				}
+			}
+		});
+		videos.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				try {
+					if (slider.isOpened()){
+						slider.animateClose();
+					} else {
+						if (!isVideos){
+							myVideosList = new ArrayList<RSSData>();
+							getVideos(VIDEOS);
+							mListView.setAdapter(new MyListAdapter(DashboardActivity.this, R.layout.rssrow,myVideosList));
+						}
+						slider.animateOpen();
+					}
+				} catch (ClientProtocolException e) {
+					toast.show();
+					e.printStackTrace();
+				} catch (IOException e) {
+					toast.show();
+					e.printStackTrace();
+				}
+			}
+		});
+
+	}
 }

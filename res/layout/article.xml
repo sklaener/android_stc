@@ -14,6 +14,8 @@
             />                
             <ImageButton style="@style/TitleBarAction"
             android:id="@+id/share" android:src="@drawable/action_bar_share" />    
+            <ImageButton style="@style/TitleBarAction"
+            android:id="@+id/browser" android:src="@drawable/ic_browser" />    
     	</LinearLayout>
     	<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
     	<com.echo.stc.AdGallery

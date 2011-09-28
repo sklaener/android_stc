@@ -47,6 +47,7 @@ public class AboutActivity extends Activity {
 				if (settings.getVibrateEnabled()) {
 					myVib.vibrate(50);
 				}
+			
 				Intent i2 = new Intent(AboutActivity.this, DashboardActivity.class);
 				i2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(i2);

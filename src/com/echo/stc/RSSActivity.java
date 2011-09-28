@@ -194,6 +194,18 @@ public class RSSActivity extends Activity {
 				share(title, url);
 			}
 		});
+		ImageButton browser = (ImageButton) findViewById(R.id.browser);
+		browser.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if (settings.getVibrateEnabled()) {
+					myVib.vibrate(50);
+				}
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				i.setData(Uri.parse(url));
+				startActivity(i);
+			}
+		});
 		try {
 
 				loadStory();	

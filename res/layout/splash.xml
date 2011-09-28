@@ -12,8 +12,7 @@
 			android:background="#558822">
 		</RelativeLayout>
 		<ImageView android:layout_gravity="center"
-			android:src="@drawable/stclogo_without" android:layout_width="fill_parent"
-			android:background="#558822" android:layout_height="50dp"></ImageView>
+			android:src="@drawable/stclogo_without" android:background="#558822" android:layout_height="wrap_content" android:layout_width="fill_parent"></ImageView>
 	</FrameLayout>
 	
 </LinearLayout>

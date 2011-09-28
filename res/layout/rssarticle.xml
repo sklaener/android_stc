@@ -13,7 +13,9 @@
             android:layout_centerVertical="true"
             />         
           <ImageButton style="@style/TitleBarAction"
-            android:id="@+id/share" android:src="@drawable/action_bar_share" />               
+            android:id="@+id/share" android:src="@drawable/action_bar_share" />  
+                        <ImageButton style="@style/TitleBarAction"
+            android:id="@+id/browser" android:src="@drawable/ic_browser" />                 
     	</LinearLayout>
 
     <FrameLayout android:layout_width="fill_parent" android:id="@+id/storyLayout2" android:layout_height="fill_parent">
